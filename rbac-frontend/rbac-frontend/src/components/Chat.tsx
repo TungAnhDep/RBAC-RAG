@@ -35,8 +35,7 @@ export default function Chat({ user }: ChatProps) {
     queryKey: ["conversations"],
     queryFn: async () => {
       try {
-        const baseUrl =
-          process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8787";
+        const baseUrl = "/api/proxy";
         const res = await fetch(`${baseUrl}/conversations`);
 
         if (!res.ok) return [];
@@ -57,7 +56,7 @@ export default function Chat({ user }: ChatProps) {
   const loadMessages = async (id: string) => {
     setCurrentConvId(id);
     setMessages([]);
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8787";
+    const baseUrl = "/api/proxy";
     const res = await fetch(`${baseUrl}/conversations/${id}`);
     if (res.ok) {
       const data = await res.json();
@@ -69,7 +68,7 @@ export default function Chat({ user }: ChatProps) {
     }
   };
   const createNewChat = async () => {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8787";
+    const baseUrl = "/api/proxy";
     const res = await fetch(`${baseUrl}/conversations`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -85,7 +84,7 @@ export default function Chat({ user }: ChatProps) {
   const deleteChat = async (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     if (!confirm("Bạn có chắc muốn xóa lịch sử này?")) return;
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8787";
+    const baseUrl = "/api/proxy";
     await fetch(`${baseUrl}/conversations/${id}`, {
       method: "DELETE",
     });
@@ -98,7 +97,7 @@ export default function Chat({ user }: ChatProps) {
 
   const renameChat = async (id: string) => {
     if (!editTitle.trim()) return;
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8787";
+    const baseUrl = "/api/proxy";
     await fetch(`${baseUrl}/conversations/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -111,8 +110,7 @@ export default function Chat({ user }: ChatProps) {
     mutationFn: async (q: string) => {
       let activeConvId = currentConvId;
       let isNewConv = false;
-      const baseUrl =
-        process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8787";
+      const baseUrl = "/api/proxy";
       if (!activeConvId) {
         const res = await fetch(`${baseUrl}/conversations`, {
           method: "POST",
@@ -170,7 +168,7 @@ export default function Chat({ user }: ChatProps) {
   };
 
   const handleLogout = async () => {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8787";
+    const baseUrl = "/api/proxy";
     await fetch(`${baseUrl}/logout`, { method: "POST" });
     router.push("/login");
     router.refresh();
@@ -375,7 +373,7 @@ export default function Chat({ user }: ChatProps) {
               )}
               <button
                 onClick={async () => {
-                  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
+                  await fetch(`/api/proxy/logout`, {
                     method: "POST",
                   });
                   router.push("/login");

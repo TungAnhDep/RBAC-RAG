@@ -14,12 +14,9 @@ export default function LoginForm() {
 
   const authMutation = useMutation({
     mutationFn: async (payload: any) => {
-      const baseUrl =
-        process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8787";
-
       // 2. Ghép nối để tạo URL tuyệt đối trỏ thẳng sang Worker
       const path = isRegister ? "/register" : "/login";
-      const fullUrl = `${baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl}${path}`;
+      const fullUrl = `/api/proxy${path}`;
       const res = await fetch(fullUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

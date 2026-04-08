@@ -32,10 +32,7 @@ export const loginController = async (c: appContext) => {
 		const cookieValue = `frensai_token=${res.token}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=3600; Partitioned`;
 
 		c.header('Set-Cookie', cookieValue);
-		c.header('Access-Control-Allow-Credentials', 'true');
 
-		c.header('Access-Control-Allow-Origin', 'https://rbac-rag.pages.dev');
-		// -----------------------
 		return c.json(res);
 	} catch (e) {
 		return c.json({ error: 'Login failed', details: String(e) }, 401);

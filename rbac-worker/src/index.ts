@@ -98,6 +98,8 @@ app.use(
 		origin: (origin) => origin,
 		allowMethods: ['POST', 'GET', 'OPTIONS'],
 		allowHeaders: ['Content-Type', 'Authorization'],
+		credentials: true,
+		exposeHeaders: ['Set-Cookie'],
 	}),
 );
 

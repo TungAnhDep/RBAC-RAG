@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { jwtVerify } from "jose";
 import dynamic from "next/dynamic";
-
+export const runtime = "edge";
 const ChatContainer = dynamic(() => import("@/components/Chat"), {
   loading: () => (
     <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">

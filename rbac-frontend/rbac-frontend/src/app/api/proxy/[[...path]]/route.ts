@@ -1,4 +1,5 @@
 export const runtime = "edge";
+export const dynamic = "force-dynamic";
 import { getRequestContext } from "@cloudflare/next-on-pages";
 
 export async function POST(req: Request) {

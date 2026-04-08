@@ -1,0 +1,54 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "rbac-worker",
+	// "vars": {
+
+	// },
+	"vectorize": [
+		{
+			"binding": "VECTOR_INDEX",
+			"index_name": "rbac-index",
+			"remote": true,
+		},
+	],
+	"services": [
+		{
+			"binding": "EMBEDDING_SVC",
+			"service": "embedding-service",
+		},
+	],
+	"ai": {
+		"binding": "AI",
+		"remote": true,
+	},
+	"main": "src/index.ts",
+	"compatibility_date": "2026-01-31",
+	// "migrations": [
+	// 	{
+	// 		"tag": "v1",
+	// 		"new_sqlite_classes": ["MyDurableObject"],
+	// 	},
+	// ],
+	// "durable_objects": {
+	// 	"bindings": [
+	// 		{
+	// 			"name": "MY_DURABLE_OBJECT",
+	// 			"class_name": "MyDurableObject",
+	// 		},
+	// 	],
+	// },
+	"observability": {
+		"enabled": true,
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "rbac-db",
+			"database_id": "ff7ffe9f-c141-4e75-84bb-03d111c64174",
+		},
+	],
+}

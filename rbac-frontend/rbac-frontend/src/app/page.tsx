@@ -4,10 +4,11 @@ import { jwtVerify } from "jose";
 import dynamic from "next/dynamic";
 
 const ChatContainer = dynamic(() => import("@/components/Chat"), {
-  ssr: false,
   loading: () => (
     <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">
-      <p className="animate-pulse font-bold">Đang khởi tạo FrensAI...</p>
+      <p className="animate-pulse font-bold uppercase tracking-widest">
+        Đang khởi tạo FrensAI...
+      </p>
     </div>
   ),
 });
@@ -38,7 +39,7 @@ export default async function Home() {
           <h1 className="text-6xl font-black text-white tracking-tighter uppercase italic">
             Frens<span className="text-blue-500">AI</span>
           </h1>
-          <p className="text-slate-400 font-bold mt-2 uppercase tracking-widest text-xs">
+          <p className="text-slate-400 font-bold mt-2 uppercase tracking-widest text-[10px]">
             Knowledge Base & Companion
           </p>
         </div>
@@ -49,7 +50,7 @@ export default async function Home() {
       </main>
     );
   } catch (error) {
-    console.error("Server Auth Error:", error);
+    console.error("Auth Error:", error);
     redirect("/login");
   }
 }

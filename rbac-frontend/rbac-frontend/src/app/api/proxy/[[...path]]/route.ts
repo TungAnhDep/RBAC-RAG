@@ -23,15 +23,32 @@ async function handleRequest(req: Request) {
   let backendPath = url.pathname.replace("/api/proxy", "");
   if (!backendPath.startsWith("/")) backendPath = "/" + backendPath;
 
-  const searchParams = url.search;
-  const targetUrl = `http://internal${backendPath}${searchParams}`;
+  const targetUrl = `http://internal${backendPath}${url.search}`;
 
-  const proxyReq = new Request(targetUrl, req);
+  const headers = new Headers(req.headers);
+  const cookie = req.headers.get("Cookie") || "";
+  headers.set("Cookie", cookie);
+
+  console.log(
+    `[Proxy] Chuyển tiếp tới: ${targetUrl} | Cookie length: ${cookie.length}`,
+  );
+
+  const proxyReq = new Request(targetUrl, {
+    method: req.method,
+    headers: headers,
+    body:
+      req.method !== "GET" && req.method !== "HEAD" ? await req.blob() : null,
+    duplex: "half",
+  });
 
   try {
-    return await env.BACKEND_SVC.fetch(proxyReq);
+    const response = await env.BACKEND_SVC.fetch(proxyReq);
+
+    return response;
   } catch (e) {
     console.error("Proxy Error:", e);
-    return new Response("Backend Bridge Failed", { status: 502 });
+    return new Response(JSON.stringify({ error: "Kết nối Worker thất bại" }), {
+      status: 502,
+    });
   }
 }

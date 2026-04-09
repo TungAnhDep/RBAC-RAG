@@ -25,17 +25,25 @@ async function handleRequest(req: Request) {
 
   const targetUrl = `http://internal${backendPath}${url.search}`;
 
-  const headers = new Headers(req.headers);
-  const cookie = req.headers.get("Cookie") || "";
-  headers.set("Cookie", cookie);
+  const proxyHeaders = new Headers(req.headers);
 
-  console.log(
-    `[Proxy] Chuyển tiếp tới: ${targetUrl} | Cookie length: ${cookie.length}`,
-  );
+  const cookieString = req.headers.get("Cookie") || "";
+  const token = cookieString
+    .split(";")
+    .find((c) => c.trim().startsWith("frensai_token="))
+    ?.split("=")[1];
+
+  if (token) {
+    proxyHeaders.set("Authorization", `Bearer ${token}`);
+  }
+
+  proxyHeaders.delete("host");
+
+  console.log(`[Proxy] Forwarding to: ${targetUrl} | Token found: ${!!token}`);
 
   const proxyReq = new Request(targetUrl, {
     method: req.method,
-    headers: headers,
+    headers: proxyHeaders,
     body:
       req.method !== "GET" && req.method !== "HEAD" ? await req.blob() : null,
     duplex: "half",
@@ -43,12 +51,14 @@ async function handleRequest(req: Request) {
 
   try {
     const response = await env.BACKEND_SVC.fetch(proxyReq);
-
     return response;
   } catch (e) {
     console.error("Proxy Error:", e);
-    return new Response(JSON.stringify({ error: "Kết nối Worker thất bại" }), {
-      status: 502,
-    });
+    return new Response(
+      JSON.stringify({ error: "Backend Connection Failed" }),
+      {
+        status: 502,
+      },
+    );
   }
 }

@@ -19,7 +19,16 @@ export async function DELETE(req: Request) {
 async function handleRequest(req: Request) {
   const { env } = getRequestContext();
   const url = new URL(req.url);
-
+  if (url.pathname === "/api/proxy/logout") {
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: {
+        "Set-Cookie":
+          "frensai_token=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT",
+        "Content-Type": "application/json",
+      },
+    });
+  }
   let backendPath = url.pathname.replace("/api/proxy", "");
   if (!backendPath.startsWith("/")) backendPath = "/" + backendPath;
 

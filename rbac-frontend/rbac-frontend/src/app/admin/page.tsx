@@ -30,7 +30,7 @@ export default function AdminPage() {
         return;
       }
 
-      const secretValue = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret";
+      const secretValue = process.env.JWT_SECRET || "your-secret";
 
       try {
         const secret = new TextEncoder().encode(secretValue);

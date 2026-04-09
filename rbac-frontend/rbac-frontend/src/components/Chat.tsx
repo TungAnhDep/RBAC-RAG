@@ -182,6 +182,7 @@ export default function Chat({ user }: ChatProps) {
       method: "POST",
       credentials: "include",
     });
+    document.cookie = "frensai_token=; Max-Age=0; path=/;";
     router.push("/login");
     router.refresh();
   };
@@ -384,12 +385,7 @@ export default function Chat({ user }: ChatProps) {
                 </button>
               )}
               <button
-                onClick={async () => {
-                  await fetch(`/api/proxy/logout`, {
-                    method: "POST",
-                  });
-                  router.push("/login");
-                }}
+                onClick={handleLogout}
                 className="bg-red-500 text-white border-2 border-black p-2 font-black uppercase text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-black"
               >
                 Logout

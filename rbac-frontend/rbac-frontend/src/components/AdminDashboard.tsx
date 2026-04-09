@@ -48,7 +48,6 @@ export default function AdminDashboard() {
     Record<number, number[]>
   >({});
   const [viewingDoc, setViewingDoc] = useState<any | null>(null);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const apiFetch = async (endpoint: string, options: RequestInit = {}) => {
     const fullUrl = `/api/proxy${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`;
     const res = await fetch(fullUrl, {

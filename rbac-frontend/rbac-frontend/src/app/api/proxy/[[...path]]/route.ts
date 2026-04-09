@@ -26,13 +26,7 @@ async function handleRequest(req: Request) {
   const searchParams = url.search;
   const targetUrl = `http://internal${backendPath}${searchParams}`;
 
-  const proxyReq = new Request(targetUrl, {
-    method: req.method,
-    headers: req.headers,
-    body:
-      req.method !== "GET" && req.method !== "HEAD" ? await req.blob() : null,
-    duplex: "half",
-  });
+  const proxyReq = new Request(targetUrl, req);
 
   try {
     return await env.BACKEND_SVC.fetch(proxyReq);

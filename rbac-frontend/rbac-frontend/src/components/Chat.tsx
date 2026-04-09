@@ -181,8 +181,12 @@ export default function Chat({ user }: ChatProps) {
     await fetch(`${baseUrl}/logout`, {
       method: "POST",
       credentials: "include",
+      cache: "no-store",
     });
-    document.cookie = "frensai_token=; Max-Age=0; path=/;";
+    document.cookie =
+      "frensai_token=; Path=/; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookie =
+      "frensai_token=; Path=/; Domain=.rbac-rag.pages.dev; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT";
     window.location.href = "/login";
   };
   const userIcon =

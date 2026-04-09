@@ -20,13 +20,23 @@ async function handleRequest(req: Request) {
   const { env } = getRequestContext();
   const url = new URL(req.url);
   if (url.pathname === "/api/proxy/logout") {
+    const cookieName = "frensai_token";
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    headers.append(
+      "Set-Cookie",
+      `${cookieName}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT`,
+    );
+
+    headers.append(
+      "Set-Cookie",
+      `${cookieName}=; Path=/; Domain=.rbac-rag.pages.dev; HttpOnly; Secure; SameSite=Lax; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT`,
+    );
+
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
-      headers: {
-        "Set-Cookie":
-          "frensai_token=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT",
-        "Content-Type": "application/json",
-      },
+      headers: headers,
     });
   }
   let backendPath = url.pathname.replace("/api/proxy", "");

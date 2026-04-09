@@ -183,8 +183,7 @@ export default function Chat({ user }: ChatProps) {
       credentials: "include",
     });
     document.cookie = "frensai_token=; Max-Age=0; path=/;";
-    router.push("/login");
-    router.refresh();
+    window.location.href = "/login";
   };
   const userIcon =
     user.role === "Admin" ? "/images/admin.png" : "/images/user.png";

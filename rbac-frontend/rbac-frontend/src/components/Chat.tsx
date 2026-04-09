@@ -36,7 +36,9 @@ export default function Chat({ user }: ChatProps) {
     queryFn: async () => {
       try {
         const baseUrl = "/api/proxy";
-        const res = await fetch(`${baseUrl}/conversations`);
+        const res = await fetch(`${baseUrl}/conversations`, {
+          credentials: "include",
+        });
 
         if (!res.ok) return [];
 
@@ -57,7 +59,9 @@ export default function Chat({ user }: ChatProps) {
     setCurrentConvId(id);
     setMessages([]);
     const baseUrl = "/api/proxy";
-    const res = await fetch(`${baseUrl}/conversations/${id}`);
+    const res = await fetch(`${baseUrl}/conversations/${id}`, {
+      credentials: "include",
+    });
     if (res.ok) {
       const data = await res.json();
       const formattedMessages = data.messages.map((m: any) => ({
@@ -73,6 +77,7 @@ export default function Chat({ user }: ChatProps) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: "Cuộc trò chuyện mới" }),
+      credentials: "include",
     });
     if (res.ok) {
       const data = await res.json();
@@ -87,6 +92,7 @@ export default function Chat({ user }: ChatProps) {
     const baseUrl = "/api/proxy";
     await fetch(`${baseUrl}/conversations/${id}`, {
       method: "DELETE",
+      credentials: "include",
     });
     queryClient.invalidateQueries({ queryKey: ["conversations"] });
     if (currentConvId === id) {
@@ -102,6 +108,7 @@ export default function Chat({ user }: ChatProps) {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: editTitle }),
+      credentials: "include",
     });
     setEditingId(null);
     queryClient.invalidateQueries({ queryKey: ["conversations"] });
@@ -116,6 +123,7 @@ export default function Chat({ user }: ChatProps) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ title: "Đang tải..." }),
+          credentials: "include",
         });
         const data = await res.json();
         activeConvId = data.id;
@@ -133,6 +141,7 @@ export default function Chat({ user }: ChatProps) {
           conversationId: activeConvId,
           isNewConv,
         }),
+        credentials: "include",
       });
       if (res.status === 401) {
         document.cookie =
@@ -169,7 +178,10 @@ export default function Chat({ user }: ChatProps) {
 
   const handleLogout = async () => {
     const baseUrl = "/api/proxy";
-    await fetch(`${baseUrl}/logout`, { method: "POST" });
+    await fetch(`${baseUrl}/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
     router.push("/login");
     router.refresh();
   };

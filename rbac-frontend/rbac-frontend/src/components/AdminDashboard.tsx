@@ -53,6 +53,7 @@ export default function AdminDashboard() {
     const fullUrl = `/api/proxy${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`;
     const res = await fetch(fullUrl, {
       ...options,
+      credentials: "include",
       headers: {
         ...(options.body && { "Content-Type": "application/json" }),
         ...options.headers,

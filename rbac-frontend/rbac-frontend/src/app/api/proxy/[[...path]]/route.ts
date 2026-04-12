@@ -24,15 +24,10 @@ async function handleRequest(req: Request) {
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
 
-    headers.append(
-      "Set-Cookie",
-      `${cookieName}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT`,
-    );
+    const deleteCookie =
+      "frensai_token=; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Partitioned";
 
-    headers.append(
-      "Set-Cookie",
-      `${cookieName}=; Path=/; Domain=rbac-rag.pages.dev; HttpOnly; Secure; SameSite=Lax; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT`,
-    );
+    headers.append("Set-Cookie", deleteCookie);
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,

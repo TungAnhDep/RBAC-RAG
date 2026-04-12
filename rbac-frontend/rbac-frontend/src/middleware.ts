@@ -26,6 +26,7 @@ export async function middleware(req: NextRequest) {
     }
 
     if (pathname.startsWith("/admin") && userRole !== "Admin") {
+      console.log("Middleware từ chối:", userRole);
       return NextResponse.redirect(new URL("/", req.url));
     }
 

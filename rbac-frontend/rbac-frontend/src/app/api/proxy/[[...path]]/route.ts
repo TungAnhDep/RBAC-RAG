@@ -31,7 +31,7 @@ async function handleRequest(req: Request) {
 
     headers.append(
       "Set-Cookie",
-      `${cookieName}=; Path=/; Domain=.rbac-rag.pages.dev; HttpOnly; Secure; SameSite=Lax; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT`,
+      `${cookieName}=; Path=/; Domain=rbac-rag.pages.dev; HttpOnly; Secure; SameSite=Lax; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT`,
     );
 
     return new Response(JSON.stringify({ success: true }), {

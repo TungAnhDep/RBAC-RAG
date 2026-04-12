@@ -14,45 +14,45 @@ const AdminDashboard = dynamic(() => import("@/components/AdminDashboard"), {
 });
 
 export default function AdminPage() {
-  const router = useRouter();
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  // const router = useRouter();
+  // const [isAuthorized, setIsAuthorized] = useState(false);
 
-  useEffect(() => {
-    const checkAccess = async () => {
-      const { jwtVerify } = await import("jose");
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("frensai_token="))
-        ?.split("=")[1];
+  // useEffect(() => {
+  //   const checkAccess = async () => {
+  //     const { jwtVerify } = await import("jose");
+  //     const token = document.cookie
+  //       .split("; ")
+  //       .find((row) => row.startsWith("frensai_token="))
+  //       ?.split("=")[1];
 
-      if (!token) {
-        router.push("/login");
-        return;
-      }
+  //     if (!token) {
+  //       router.push("/login");
+  //       return;
+  //     }
 
-      const secretValue = process.env.JWT_SECRET || "your-secret";
+  //     const secretValue = process.env.JWT_SECRET || "your-secret";
 
-      try {
-        const secret = new TextEncoder().encode(secretValue);
-        const { payload } = await jwtVerify(token, secret);
+  //     try {
+  //       const secret = new TextEncoder().encode(secretValue);
+  //       const { payload } = await jwtVerify(token, secret);
 
-        if (payload.role !== "Admin") {
-          router.push("/");
-        } else {
-          setIsAuthorized(true);
-        }
-      } catch (err) {
-        console.error("JWT Verify Error:", err);
-        router.push("/login");
-      }
-    };
+  //       if (payload.role !== "Admin") {
+  //         router.push("/");
+  //       } else {
+  //         setIsAuthorized(true);
+  //       }
+  //     } catch (err) {
+  //       console.error("JWT Verify Error:", err);
+  //       router.push("/login");
+  //     }
+  //   };
 
-    checkAccess();
-  }, [router]);
+  //   checkAccess();
+  // }, [router]);
 
-  if (!isAuthorized) {
-    return <div className="min-h-screen bg-slate-900" />;
-  }
+  // if (!isAuthorized) {
+  //   return <div className="min-h-screen bg-slate-900" />;
+  // }
 
   return (
     <main className="min-h-screen bg-slate-900 flex items-center justify-center p-4">

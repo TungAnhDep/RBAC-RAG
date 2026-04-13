@@ -1,10 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
-interface Role {
-  id: number;
-  name: string;
-}
 
 export default function LoginForm() {
   const [isRegister, setIsRegister] = useState(false);
@@ -14,7 +10,6 @@ export default function LoginForm() {
 
   const authMutation = useMutation({
     mutationFn: async (payload: any) => {
-      // 2. Ghép nối để tạo URL tuyệt đối trỏ thẳng sang Worker
       const path = isRegister ? "/register" : "/login";
       const fullUrl = `/api/proxy${path}`;
       const res = await fetch(fullUrl, {

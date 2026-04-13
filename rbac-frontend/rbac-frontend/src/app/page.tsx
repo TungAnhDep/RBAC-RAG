@@ -1,8 +1,13 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { jwtVerify } from "jose";
+import { JWTPayload, jwtVerify } from "jose";
 import dynamic from "next/dynamic";
 export const runtime = "edge";
+interface UserPayLoad extends JWTPayload {
+  id?: number;
+  email?: string;
+  role?: string;
+}
 const ChatContainer = dynamic(() => import("@/components/Chat"), {
   loading: () => (
     <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">
@@ -25,12 +30,12 @@ export default async function Home() {
     const secretValue = process.env.JWT_SECRET || "your-secret-key";
     const secret = new TextEncoder().encode(secretValue);
 
-    const { payload } = await jwtVerify(token, secret);
+    const { payload } = await jwtVerify<UserPayLoad>(token, secret);
 
     const user = {
-      id: (payload.sub || payload.id) as number,
-      email: payload.email as string,
-      role: payload.role as string,
+      id: Number(payload.id ?? payload.sub ?? 0),
+      email: String(payload.email ?? "unknown@frensai.com"),
+      role: String(payload.role ?? "Intern"),
     };
 
     return (

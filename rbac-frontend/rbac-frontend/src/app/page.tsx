@@ -12,7 +12,7 @@ const ChatContainer = dynamic(() => import("@/components/Chat"), {
   loading: () => (
     <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">
       <p className="animate-pulse font-bold uppercase tracking-widest">
-        Đang khởi tạo FrensAI...
+        Đang khởi tạo RBAC...
       </p>
     </div>
   ),

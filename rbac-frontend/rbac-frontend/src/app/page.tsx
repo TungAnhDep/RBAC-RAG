@@ -34,7 +34,7 @@ export default async function Home() {
 
     const user = {
       id: Number(payload.id ?? payload.sub ?? 0),
-      email: String(payload.email ?? "unknown@frensai.com"),
+      email: String(payload.email ?? "unknown@aura.com"),
       role: String(payload.role ?? "Intern"),
     };
 

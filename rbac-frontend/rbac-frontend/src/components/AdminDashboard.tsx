@@ -299,7 +299,7 @@ export default function AdminDashboard() {
       {/* HEADER */}
       <div className="flex justify-between items-center mb-8 border-b-4 border-black pb-4">
         <h2 className="text-4xl font-black uppercase italic text-blue-600 italic">
-          FrensAI Admin
+          AuraRBAC Admin
         </h2>
         <button
           onClick={() => router.push("/")}

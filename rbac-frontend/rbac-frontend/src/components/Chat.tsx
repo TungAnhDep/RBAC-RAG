@@ -404,7 +404,7 @@ export default function Chat({ user }: ChatProps) {
           {messages.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center opacity-50">
               <h2 className="text-3xl font-black uppercase text-slate-400">
-                FrensAI
+                AuraRBAC
               </h2>
               <p className="font-bold text-blue-500">Bắt đầu trò chuyện</p>
             </div>

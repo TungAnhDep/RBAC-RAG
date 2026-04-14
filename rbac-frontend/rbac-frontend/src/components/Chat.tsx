@@ -145,7 +145,7 @@ export default function Chat({ user }: ChatProps) {
       });
       if (res.status === 401) {
         document.cookie =
-          "frensai_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          "aura_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         window.location.href = "/login";
         throw new Error("Unauthorized");
       }
@@ -184,9 +184,9 @@ export default function Chat({ user }: ChatProps) {
       cache: "no-store",
     });
     document.cookie =
-      "frensai_token=; Path=/; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      "aura_token=; Path=/; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT";
     document.cookie =
-      "frensai_token=; Path=/; Domain=.rbac-rag.pages.dev; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      "aura_token=; Path=/; Domain=.rbac-rag.pages.dev; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT";
     window.location.href = "/login";
   };
   const userIcon =

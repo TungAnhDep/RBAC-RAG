@@ -102,7 +102,7 @@ export default function LoginForm() {
             : "Login"}
       </button>
       <p className="text-center font-bold text-sm text-black mt-4">
-        {isRegister ? "Already have an account?" : "New to RBAC?"}
+        {isRegister ? "Already have an account?" : "New to AuraRBAC?"}
         <button
           type="button"
           onClick={() => setIsRegister(!isRegister)}

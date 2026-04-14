@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const JWT_SECRET = process.env.JWT_SECRET;
-  const token = req.cookies.get("frensai_token")?.value;
+  const token = req.cookies.get("aura_token")?.value;
 
   if (!token) {
     if (pathname === "/" || pathname.startsWith("/admin")) {
@@ -35,7 +35,7 @@ export async function middleware(req: NextRequest) {
 
     if (pathname !== "/login") {
       const response = NextResponse.redirect(new URL("/login", req.url));
-      response.cookies.delete("frensai_token");
+      response.cookies.delete("aura_token");
       return response;
     }
 

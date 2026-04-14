@@ -20,12 +20,12 @@ async function handleRequest(req: Request) {
   const { env } = getRequestContext();
   const url = new URL(req.url);
   if (url.pathname === "/api/proxy/logout") {
-    const cookieName = "frensai_token";
+    const cookieName = "aura_token";
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
 
     const deleteCookie =
-      "frensai_token=; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Partitioned";
+      "aura_token=; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Partitioned";
 
     headers.append("Set-Cookie", deleteCookie);
 
@@ -44,7 +44,7 @@ async function handleRequest(req: Request) {
   const cookieString = req.headers.get("Cookie") || "";
   const token = cookieString
     .split(";")
-    .find((c) => c.trim().startsWith("frensai_token="))
+    .find((c) => c.trim().startsWith("aura_token="))
     ?.split("=")[1];
 
   if (token) {

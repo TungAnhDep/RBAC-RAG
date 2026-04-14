@@ -12,7 +12,7 @@ const ChatContainer = dynamic(() => import("@/components/Chat"), {
   loading: () => (
     <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">
       <p className="animate-pulse font-bold uppercase tracking-widest">
-        Đang khởi tạo RBAC...
+        Đang khởi tạo AuraRBAC...
       </p>
     </div>
   ),
@@ -20,7 +20,7 @@ const ChatContainer = dynamic(() => import("@/components/Chat"), {
 
 export default async function Home() {
   const cookieStore = await cookies();
-  const token = cookieStore.get("frensai_token")?.value;
+  const token = cookieStore.get("aura_token")?.value;
 
   if (!token) {
     redirect("/login");

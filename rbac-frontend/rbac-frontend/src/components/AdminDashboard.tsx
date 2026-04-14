@@ -61,7 +61,7 @@ export default function AdminDashboard() {
     if (res.status === 401) {
       alert("Quyền hạn của bạn đã thay đổi. Vui lòng đăng nhập lại!");
       document.cookie =
-        "frensai_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        "aura_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       window.location.href = "/login";
       return;
     }

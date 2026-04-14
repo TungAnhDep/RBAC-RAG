@@ -68,7 +68,7 @@ async function queryClassification(query: string, ai: any): Promise<string> {
 
 async function transformQuery(query: string, ai: any): Promise<string> {
 	const transformPrompt = await ai.run('@cf/meta/llama-3.1-8b-instruct-fast', {
-		prompt: `You are a Senior Search Engineer for RBAC Chatbot.
+		prompt: `You are a Senior Search Engineer for AuraRBAC Chatbot.
 
 Task:
 Rewrite the user's query to improve semantic clarity for vector search.

@@ -2,7 +2,6 @@ export const runtime = "edge";
 export const dynamic = "force-dynamic";
 import { getRequestContext } from "@cloudflare/next-on-pages";
 
-// PHẢI EXPORT ĐỦ CÁC HÀM NÀY ĐỂ DASHBOARD CHẠY ĐƯỢC
 export async function POST(req: Request) {
   return handleRequest(req);
 }
@@ -20,7 +19,6 @@ async function handleRequest(req: Request) {
   const { env } = getRequestContext();
   const url = new URL(req.url);
   if (url.pathname === "/api/proxy/logout") {
-    const cookieName = "aura_token";
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
 

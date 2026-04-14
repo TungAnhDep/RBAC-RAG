@@ -14,7 +14,7 @@ export default function LoginPage() {
     <main className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6">
       <div className="mb-12 text-center">
         <h1 className="text-6xl font-black text-white tracking-tighter uppercase italic">
-          Frens<span className="text-blue-500">AI</span>
+          Aura<span className="text-blue-500">RBAC</span>
         </h1>
         <p className="text-slate-400 font-bold mt-2 uppercase tracking-widest">
           Knowledge Base & Companion

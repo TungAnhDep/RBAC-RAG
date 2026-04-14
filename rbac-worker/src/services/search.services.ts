@@ -295,7 +295,7 @@ export const searchService = async (
 			.substring(0, 3000);
 		const aiResponse = await ai.run('@cf/meta/llama-3.1-8b-instruct-fast', {
 			prompt: `Bạn đã nói
-You are FrensBot, a company assistant that answers questions based only on the provided context documents. The user is authorized to view the context.
+You are AuraBot, a company assistant that answers questions based only on the provided context documents. The user is authorized to view the context.
 
 
 

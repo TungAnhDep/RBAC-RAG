@@ -29,9 +29,10 @@ export const loginController = async (c: appContext) => {
 	}
 	try {
 		const res = await loginAuthService(c.env.DB, email, password, c.env.JWT_SECRET, Redis.fromEnv(c.env));
-		const cookieValue = `aura_token=${res.token}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=3600; Partitioned`;
+		const authCookie = `aura_token=${res.token}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=3600; Partitioned`;
+		const clearLegacyCookie = `frensai_token=; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Partitioned`;
 
-		c.header('Set-Cookie', cookieValue);
+		c.header('Set-Cookie', [authCookie, clearLegacyCookie]);
 
 		return c.json(res);
 	} catch (e) {

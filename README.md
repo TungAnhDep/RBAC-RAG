@@ -131,7 +131,7 @@ yarn dev
 ```bash
 npx wrangler d1 execute <db-name> --file=./schema.sql
 ```
-4. **Access the application**
+5. **Access the application**
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:8787
 - Admin Dashboard: http://localhost:3000/admin

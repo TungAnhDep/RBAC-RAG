@@ -5,7 +5,7 @@ Website:  https://rbac-rag.pages.dev/
 ## 2. Key features
 ### Authentication & Authorization
 - JWT-based token authentication
-- Role-based access control (Admin, User, Intern,... roles)
+- Role-based access control
 - Rate limiting middleware
 - Secure password hashing with bcryptjs
 
@@ -64,7 +64,77 @@ RBAC/
 + Infrastructure: Cloudflare Workers, Upstash Redis (Caching).
 
 ## 5. Access the application
-+ Website: https://rbac-rag.pages.dev/
+### Web demo: https://rbac-rag.pages.dev/
++ Gmail: intern@frensai.com
++ Password: 123456
+### Local:
+### Prerequisites
+- Node.js 18+ 
+- Yarn 4.9.1
+- Wrangler CLI: `npm install -g wrangler`
+
+### Environment Variables
+**rbac-worker/.dev.vars**
+```env
+JWT_SECRET=your-secret-key
+UPSTASH_REDIS_REST_URL=...
+UPSTASH_REDIS_REST_TOKEN=...
+```
+
+**rbac-frontend/.env.local**
+```env
+JWT_SECRET=your-secret-key
+BACKEND_LOCAL_URL=your-wrangler-backend-url
+```
+
+### Setup Steps
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/TungAnhDep/RBAC-RAG.git
+cd rbac
+```
+
+2. **Install dependencies**
+```bash
+# Backend
+cd rbac-worker
+yarn install
+cd ../
+
+# Frontend
+cd rbac-frontend/rbac-frontend
+yarn install
+cd ../../
+
+# Embedding Service
+cd embedding-service
+yarn install
+cd ../
+```
+
+3. **Start development servers**
+```bash
+# Terminal 1: Backend Worker
+cd rbac-worker
+yarn dev
+
+# Terminal 2: Frontend
+cd rbac-frontend/rbac-frontend
+yarn dev
+
+# Terminal 3: Embedding Service (optional)
+cd embedding-service
+yarn dev
+```
+4. **Create database**
+```bash
+npx wrangler d1 execute <db-name> --file=./schema.sql
+```
+4. **Access the application**
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8787
+- Admin Dashboard: http://localhost:3000/admin
 ## 6. Database Schema
 + Conversations: id, user_id, created_at, updated_at
 + Documents: id, title, content, access_level, created_at, updated_at
@@ -74,3 +144,4 @@ RBAC/
 + Messages: id, conversation_id, role, content, created_at
 + Roles: id, name, created_at
 + Users: id, email, password_hash, created_at
+

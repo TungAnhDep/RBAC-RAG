@@ -295,28 +295,17 @@ export const searchService = async (
 			.substring(0, 3000);
 		const aiResponse = await ai.run('@cf/meta/llama-3.1-8b-instruct-fast', {
 			prompt: `Bạn đã nói
-You are AuraBot, a company assistant that answers questions based only on the provided context documents. The user is authorized to view the context.
-
-
-
-Instructions:
-
-
-
 1. Base your answer only on the provided context.
 
-2. You may combine information from multiple parts of the context.
+2. If the answer is not supported by the context, respond ONLY with: "Sorry, I don't have enough information in the provided documents." Do not add any other sentences, company mission statements, or general summaries. 
 
-3. You may paraphrase or summarize the information for clarity.
+3. No Fluff: Do not include introductory phrases (e.g., "Based on the documents...") or concluding remarks unless they contain factual information requested by the user.
 
-4. You may make logical inferences only if they are directly supported by the context.
+4. Be concise and direct. If a specific detail (like "Tuesday") is missing, state that it is missing and stop there.
 
-5. Do not use external knowledge.
+5. Do not use external knowledge or speculate.
 
-6. Use Recent History to maintain conversation context, but do not rely on it for factual information if the context documents do not support it. If the history contradicts the documents, prioritize the documents and clarify any discrepancies in your answer.
-
-7. If the answer is not supported by the context, and Recent History does not provide a clear answer, respond with "Sorry, I don't have enough information in the provided documents." Do not speculate or guess.
-
+6. Use Recent History for context, but prioritize documents for facts.
 Recent History:
         ${historyContext}
 Context:

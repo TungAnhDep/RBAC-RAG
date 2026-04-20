@@ -24,15 +24,15 @@ export const registerController = async (c: appContext) => {
 };
 export const loginController = async (c: appContext) => {
 	const { email, password } = await c.req.json();
+	const isDev = process.env.NODE_ENV === 'development';
 	if (!email || !password) {
 		return c.json({ error: 'Email and password are required' }, 400);
 	}
 	try {
 		const res = await loginAuthService(c.env.DB, email, password, c.env.JWT_SECRET, Redis.fromEnv(c.env));
-		const authCookie = `aura_token=${res.token}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=3600; Partitioned`;
-		const clearLegacyCookie = `frensai_token=; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Partitioned`;
+		const cookieValue = `aura_token=${res.token}; Path=/; HttpOnly; ${isDev ? '' : 'Secure;'} ${isDev ? 'SameSite=Lax;' : 'SameSite=None; Partitioned;'} Max-Age=3600`;
 
-		c.header('Set-Cookie', [authCookie, clearLegacyCookie]);
+		c.header('Set-Cookie', cookieValue);
 
 		return c.json(res);
 	} catch (e) {

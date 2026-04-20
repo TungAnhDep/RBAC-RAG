@@ -5,9 +5,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "rbac-worker",
-	// "vars": {
 
-	// },
 	"vectorize": [
 		{
 			"binding": "VECTOR_INDEX",
@@ -19,6 +17,10 @@
 		{
 			"binding": "EMBEDDING_SVC",
 			"service": "embedding-service",
+		},
+		{
+			"binding": "BACKEND_SVC",
+			"service": "rbac-worker",
 		},
 	],
 	"ai": {
